@@ -1,0 +1,19 @@
+- name: 🐳 Install Docker
+  apt:
+    name: docker.io
+    state: present
+    update_cache: true
+
+- name: 🔄 Pull latest Docker image from Docker Hub
+  docker_image:
+    name: kixan123/todo-java-app
+    source: pull
+
+- name: 🚀 Run ToDo Java App container
+  docker_container:
+    name: todo-app
+    image: kixan123/todo-java-app
+    state: started
+    restart_policy: always
+    ports:
+      - "9001:8080"

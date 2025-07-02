@@ -1,0 +1,6 @@
+- name: 🚀 Deploy ToDo Java App using Docker
+  hosts: web
+  become: true
+
+  roles:
+    - deploy
