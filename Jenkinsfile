@@ -6,21 +6,35 @@ pipeline {
         jdk 'jdk17'
     }
 
-    stages {
+    environment {
+        DOCKER_IMAGE = 'your-dockerhub-username/todo-java-app'
+    }
 
+    stages {
         stage('Build and Test') {
             steps {
-                sh './mvnw clean test'
+                sh './mvnw clean package -DskipTests=false'
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-creds') {
+                        def app = docker.build("${env.DOCKER_IMAGE}")
+                        app.push('latest')
+                    }
+                }
             }
         }
     }
 
     post {
         success {
-            echo '✅ Build and tests succeeded!'
+            echo '✅ Build, test, and Docker push successful!'
         }
         failure {
-            echo '❌ Build or tests failed.'
+            echo '❌ Pipeline failed.'
         }
     }
 }
