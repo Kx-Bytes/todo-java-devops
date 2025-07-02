@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = 'your-dockerhub-username/todo-java-app'
+        DOCKER_IMAGE = 'kixan123/todo-java-app'
     }
 
     stages {
