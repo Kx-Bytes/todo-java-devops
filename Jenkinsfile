@@ -7,11 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repo') {
-            steps {
-                git 'https://github.com/Kx-Bytes/todo-java-devops.git'
-            }
-        }
 
         stage('Build and Test') {
             steps {
